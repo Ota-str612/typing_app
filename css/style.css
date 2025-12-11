@@ -1,0 +1,373 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  padding: 12px 20px;
+  border-bottom: 1px solid #1f2937;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+header h1 {
+  font-size: 18px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.input-group label {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.input-group input,
+.input-group select {
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #4b5563;
+  background: #020617;
+  color: #e5e7eb;
+  min-width: 120px;
+}
+
+.input-group input {
+  min-width: 220px;
+}
+
+.input-group button {
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid #38bdf8;
+  background: #0ea5e9;
+  color: #020617;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.input-group button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+#openEditorBtn {
+  background: #22c55e;
+  border-color: #4ade80;
+}
+
+.practice-toggle {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.practice-toggle input {
+  margin: 0;
+}
+
+.speed-label {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 16px 16px;
+  flex: 1;
+}
+
+#player-container {
+  background: #020617;
+  border-radius: 12px;
+  padding: 10px;
+  border: 1px solid #1f2937;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#player {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #9ca3af;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.stats span {
+  margin-right: 12px;
+}
+
+#typing-area {
+  background: #020617;
+  border-radius: 12px;
+  padding: 14px;
+  border: 1px solid #1f2937;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lyric-jp {
+  font-size: 20px;
+  text-align: center;
+  min-height: 32px;
+}
+
+.lyric-meta {
+  font-size: 11px;
+  text-align: center;
+  color: #9ca3af;
+}
+
+.lyric-romaji {
+  font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+  font-size: 20px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: #020617;
+  border: 1px solid #111827;
+  min-height: 40px;
+  text-align: center;
+  word-break: break-all;
+}
+
+.lyric-romaji span {
+  padding: 0 1px;
+}
+
+.char-pending {
+  color: #6b7280;
+}
+
+.char-correct {
+  color: #22c55e;
+}
+
+.char-wrong {
+  color: #f97316;
+  text-decoration: line-through;
+}
+
+.line-info {
+  font-size: 11px;
+  color: #9ca3af;
+  display: flex;
+  justify-content: space-between;
+}
+
+.helper {
+  font-size: 12px;
+  color: #9ca3af;
+  border-top: 1px dashed #1f2937;
+  padding-top: 6px;
+  text-align: center;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  display: inline-block;
+  margin-right: 4px;
+  background: #ef4444;
+}
+
+.status-dot.ready {
+  background: #22c55e;
+}
+
+/* スコア結果パネル */
+.result-panel {
+  margin-top: 8px;
+  font-size: 12px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #020617;
+  border: 1px solid #1f2937;
+  color: #e5e7eb;
+  line-height: 1.5;
+}
+
+.result-panel.hidden {
+  display: none;
+}
+
+/* 曲リスト */
+#song-list-container {
+  border-radius: 8px;
+  background: #020617;
+  border: 1px solid #111827;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.song-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.song-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.song-item {
+  width: 100%;
+  text-align: left;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.song-item span.title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.song-item span.count {
+  font-size: 10px;
+  color: #9ca3af;
+  margin-left: 6px;
+}
+
+.song-item:hover {
+  border-color: #1f2937;
+  background: #020617;
+}
+
+.song-item.active {
+  background: #0ea5e9;
+  color: #020617;
+  border-color: #38bdf8;
+}
+
+/* 曲エディタ */
+.song-editor {
+  border-top: 1px solid #1f2937;
+  background: #020617;
+  padding: 10px 18px 14px;
+  font-size: 12px;
+}
+
+.song-editor.hidden {
+  display: none;
+}
+
+.song-editor h2 {
+  font-size: 14px;
+  margin: 0 0 6px;
+}
+
+.song-editor-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 6px;
+  align-items: center;
+}
+
+.song-editor-row label {
+  min-width: 60px;
+}
+
+.song-editor-row input {
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #4b5563;
+  background: #020617;
+  color: #e5e7eb;
+  min-width: 200px;
+}
+
+.song-editor textarea {
+  width: 100%;
+  min-height: 120px;
+  border-radius: 6px;
+  border: 1px solid #4b5563;
+  background: #020617;
+  color: #e5e7eb;
+  padding: 6px 8px;
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+
+.song-editor-buttons {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.song-editor-buttons button {
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid #4b5563;
+  background: #020617;
+  color: #e5e7eb;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.song-editor-buttons button.primary {
+  border-color: #38bdf8;
+  background: #0ea5e9;
+  color: #020617;
+}
+
+.song-editor-buttons button.red {
+  border-color: #f97316;
+  color: #fed7aa;
+}
+
+.song-editor-info {
+  margin-top: 4px;
+  color: #9ca3af;
+  font-size: 11px;
+  line-height: 1.4;
+}

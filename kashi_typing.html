@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>歌詞タイピング × YouTube</title>
+  <!-- 外部CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<header>
+  <h1>歌詞タイピング × YouTube</h1>
+  <div class="input-group">
+    <label for="videoId">YouTube URL / ID:</label>
+    <input id="videoId" type="text"
+           placeholder="例: https://www.youtube.com/watch?v=XXXXXXXX" />
+    <button id="loadVideoBtn">動画を読み込む</button>
+    <button id="openEditorBtn">曲を登録/編集</button>
+    <button id="startTypingBtn">3秒後に開始</button>
+
+    <label class="practice-toggle">
+      <input type="checkbox" id="practiceModeCheckbox" />
+      練習モード（動画なし）
+    </label>
+
+    <label class="speed-label" for="playbackRateSelect">速度</label>
+    <select id="playbackRateSelect">
+      <option value="0.5">0.5x</option>
+      <option value="0.75">0.75x</option>
+      <option value="1" selected>1.0x</option>
+      <option value="1.25">1.25x</option>
+      <option value="1.5">1.5x</option>
+      <option value="2">2.0x</option>
+    </select>
+
+    <span id="playerStatus">
+      <span class="status-dot" id="statusDot"></span>
+      <span id="statusText">YouTube API 読み込み中...</span>
+    </span>
+  </div>
+</header>
+
+<main>
+  <section id="player-container">
+    <div id="song-list-container">
+      <div class="song-list-header">
+        <span>曲リスト（クリックで選択）</span>
+      </div>
+      <div id="songList" class="song-list"></div>
+    </div>
+
+    <div id="player"></div>
+
+    <div class="stats">
+      <div>
+        <span id="statTime">時間: 0.0s</span>
+        <span id="statCPM">速度: 0 chars/min</span>
+      </div>
+      <div>
+        <span id="statCorrect">◎ 0</span>
+        <span id="statWrong">✕ 0</span>
+        <span id="statAccuracy">正解率: 0%</span>
+        <span id="countdownInfo" style="margin-left:8px;"></span>
+      </div>
+    </div>
+  </section>
+
+  <section id="typing-area" tabindex="0">
+    <div class="lyric-jp" id="lyricJp">曲を選んで、動画の再生を開始すると歌詞が表示されます</div>
+    <div class="lyric-meta" id="lyricMeta">歌詞データは「曲を登録/編集」から設定してください</div>
+    <div class="lyric-romaji" id="lyricRomaji"></div>
+    <div class="line-info">
+      <span id="lineIndexInfo">行: 0 / 0</span>
+      <span id="lineTimeInfo">-</span>
+    </div>
+    <div class="helper">
+      このエリアを一度クリックしてフォーカスしてからタイピングしてください。<br />
+      「shi」「chi」「tsu」「fu」「ji」と書いてあっても、
+      <code>si / ti / tu / hu / zi</code> などで入力OK。<br />
+      romajiの中のスペースや ? , . などの記号は打たなくてOKです。
+    </div>
+    <div id="resultPanel" class="result-panel hidden"></div>
+  </section>
+</main>
+
+<section id="song-editor" class="song-editor hidden">
+  <h2>曲の登録 / 編集</h2>
+  <div class="song-editor-row">
+    <label for="songTitleInput">曲名</label>
+    <input id="songTitleInput" type="text" placeholder="例: デモ曲" />
+  </div>
+  <div class="song-editor-row">
+    <label for="songVideoInput">YouTube URL / ID</label>
+    <input id="songVideoInput" type="text"
+           placeholder="例: https://www.youtube.com/watch?v=XXXXXXXX" />
+  </div>
+  <div class="song-editor-row" style="flex-direction: column; align-items: stretch;">
+    <label for="lyricsTextInput">歌詞データ（1行1フレーズ）</label>
+    <textarea id="lyricsTextInput" placeholder="例:
+0.0,3.0,「おはよ」 朝だって,ohayo asadatte
+3.0,7.0,どうしたの？,doshitano"></textarea>
+  </div>
+  <div class="song-editor-buttons">
+    <button id="saveNewSongBtn" class="primary">新規として保存</button>
+    <button id="saveCurrentSongBtn">現在の曲を上書き保存</button>
+    <button id="autoRomajiBtn">romaji自動生成（日本語→ローマ字）</button>
+    <button id="exportSongsBtn">曲データを書き出す(JSON)</button>
+    <button id="importSongsBtn">曲データを読み込む(JSON)</button>
+    <input id="importFileInput" type="file" accept="application/json" style="display:none;" />
+    <button id="closeEditorBtn" class="red">閉じる</button>
+  </div>
+  <div id="editorInfo" class="song-editor-info">
+    書式: <code>start秒,end秒,日本語の歌詞,romaji</code> を1行ずつ。<br />
+    例: <code>3.0,7.0,どうしたの？,doshitano</code><br />
+    romaji に空白や ? , . などを入れても、それらは入力不要としてスキップされます。<br />
+    「romaji自動生成」は、日本語（ひらがな・カタカナ）から簡易的にローマ字を作ります。
+    漢字はそのまま残るので、必要に応じて手で直してください。<br />
+    曲データはブラウザに保存されますが、JSONとして書き出しておくとバックアップになります。
+  </div>
+</section>
+
+<!-- YouTube IFrame API -->
+<script src="https://www.youtube.com/iframe_api"></script>
+<!-- 外部JS -->
+<script src="js/app.js"></script>
+</body>
+</html>
