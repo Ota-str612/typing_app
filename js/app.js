@@ -528,17 +528,17 @@ const typingState = (() => {
     }
 
     // 2) chi を ti で (ち)
+    //    行の先頭じゃなくても OK にする
     if (
-      idx === 0 &&
-      len >= 3 &&
-      expLower.startsWith("chi") &&
-      keyLower === "t"
+      idx + 2 < len &&                              // idx, idx+1, idx+2 が存在
+      expLower.slice(idx, idx + 3) === "chi" &&    // そこから3文字が "chi"
+      keyLower === "t"                             // 期待は 'c' だけど 't' を許可
     ) {
-      charStates[0] = "correct";
+      charStates[idx] = "correct";   // その位置の 'c' を正解扱い
       totalCorrect += 1;
       currentCombo += 1;
       if (currentCombo > maxCombo) maxCombo = currentCombo;
-      currentCharIndex += 1;
+      currentCharIndex += 1;         // 次は 'h' の位置へ
       renderLyric();
       updateStats();
       return true;
